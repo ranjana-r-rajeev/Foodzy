@@ -1,11 +1,16 @@
 import { Button, StyleSheet, Text, TextInput, View, TouchableHighlight } from 'react-native'
 import React, { useState } from 'react'
 import { Divider } from 'react-native-paper';
+import Signup from './Signup';
 
 const Login = ({navigation}) => {
 
   const [email, setemail] = useState('');
   const [password, setpassword] =useState('');
+
+  const navigateToSignup = () => {
+    navigation.navigate('Signup'); // Make sure 'Signup' is the correct screen name in your navigation stack.
+  };
 
   return (
     <View>
@@ -27,7 +32,12 @@ const Login = ({navigation}) => {
       </View>
       <Divider style={{ marginTop: 180, marginBottom: 10, width:"80%", alignSelf: "center" }}/>
       <View style={styles.linktext} >
-      <Text>Don't Have an account SignUp </Text>
+      <Text>
+          Don't Have an account{' '}
+          <TouchableHighlight onPress={navigateToSignup}>
+            <Text style={{ color: 'blue' }}>Signup</Text>
+          </TouchableHighlight>
+        </Text>
       <Text style={{textAlign: 'center'}}>Forgot Password?</Text>
       </View>
     </View>

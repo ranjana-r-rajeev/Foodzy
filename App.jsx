@@ -16,7 +16,7 @@ const App = () => {
       <Stack.Navigator>
 
         <Stack.Screen name="Login" component={Login} options={{ headerShown: false,}} />
-        <Stack.Screen name="Notifications" component={Signup} options={{ headerShown: false,}}/>  
+        <Stack.Screen name="Signup" component={Signup} options={{ headerShown: false,}}/>  
         {/* <Stack.Screen name="Profile" component={Profile} />
         <Stack.Screen name="Settings" component={Settings} /> */}
       </Stack.Navigator>
