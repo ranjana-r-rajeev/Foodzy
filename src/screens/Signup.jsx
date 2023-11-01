@@ -1,5 +1,6 @@
-import { StyleSheet, Text, TextInput, View, Button } from 'react-native'
+import { StyleSheet, Text, TextInput, View, Button, KeyboardAvoidingView } from 'react-native'
 import React, { useState } from 'react'
+import { ScrollView } from 'react-native-gesture-handler';
 
 const Signup = () => {
 
@@ -10,32 +11,41 @@ const Signup = () => {
     
   return (
     <View>
-      <Text style={styles.title}>Foodzy</Text>
-      <TextInput style={styles.textbox}
-      placeholder='First & Last Name'
-      value={username}
-      onChangeText={setusername}/>
-      <TextInput style={styles.textbox}
-      placeholder='Phone No.'
-      value={phoneno}
-      onChangeText={setphoneno}/>
-      <TextInput style={styles.textbox}
-      placeholder='Email Id'
-      value={email}
-      onChangeText={setemail}/>
-      <TextInput style={styles.textbox}
-      placeholder='Password'
-      value={password}
-      onChangeText={setpassword}
-      secureTextEntry/>
-      <View style={styles.button}> 
-        <Button 
-        title='SignUp'
-        color={'blue'}/>
-      </View>
-
+      <ScrollView>
+        <KeyboardAvoidingView>
+          <Text style={styles.title}>Foodzy</Text>
+          <TextInput
+            style={styles.textbox}
+            placeholder="First & Last Name"
+            value={username}
+            onChangeText={setusername}
+          />
+          <TextInput
+            style={styles.textbox}
+            placeholder="Phone No."
+            value={phoneno}
+            onChangeText={setphoneno}
+          />
+          <TextInput
+            style={styles.textbox}
+            placeholder="Email Id"
+            value={email}
+            onChangeText={setemail}
+          />
+          <TextInput
+            style={styles.textbox}
+            placeholder="Password"
+            value={password}
+            onChangeText={setpassword}
+            secureTextEntry
+          />
+          <View style={styles.button}>
+            <Button title="SignUp" color={'blue'} />
+          </View>
+        </KeyboardAvoidingView>
+      </ScrollView>
     </View>
-  )
+  );
 }
 
 export default Signup
@@ -44,7 +54,7 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 30,
         textAlign:'center',
-        paddingTop: 200,
+        paddingTop: 150,
         paddingBottom:30,
         fontWeight:'bold'
       },

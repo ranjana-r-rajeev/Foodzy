@@ -1,5 +1,6 @@
 import { Button, StyleSheet, Text, TextInput, View } from 'react-native'
 import React, { useState } from 'react'
+import { Divider } from 'react-native-paper';
 
 const Login = ({navigation}) => {
 
@@ -24,6 +25,8 @@ const Login = ({navigation}) => {
         title='Login'
         color={'blue'}/>
       </View>
+      <Divider style={{ marginTop: 180 }}/>
+      <Text>Hello</Text>
     </View>
   )
 }
