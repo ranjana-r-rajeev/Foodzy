@@ -1,4 +1,4 @@
-import { Button, StyleSheet, Text, TextInput, View } from 'react-native'
+import { Button, StyleSheet, Text, TextInput, View, TouchableHighlight } from 'react-native'
 import React, { useState } from 'react'
 import { Divider } from 'react-native-paper';
 
@@ -25,8 +25,11 @@ const Login = ({navigation}) => {
         title='Login'
         color={'blue'}/>
       </View>
-      <Divider style={{ marginTop: 180 }}/>
-      <Text>Hello</Text>
+      <Divider style={{ marginTop: 180, marginBottom: 10, width:"80%", alignSelf: "center" }}/>
+      <View style={styles.linktext} >
+      <Text>Don't Have an account SignUp </Text>
+      <Text style={{textAlign: 'center'}}>Forgot Password?</Text>
+      </View>
     </View>
   )
 }
@@ -55,5 +58,8 @@ const styles = StyleSheet.create({
     width:200,
     alignSelf:'center',
     borderRadius:30
+  },
+  linktext: {
+    alignSelf: "center"
   }
 })
