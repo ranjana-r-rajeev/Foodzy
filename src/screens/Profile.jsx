@@ -1,4 +1,4 @@
-import { View, Text, StatusBar, Image } from 'react-native'
+import { View, Text, StatusBar, Image, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
@@ -41,6 +41,22 @@ const Profile = () => {
                 }}>
                     Food Lover
                 </Text>
+                <View style={{ flexDirection: 'row' }}>
+                    <TouchableOpacity
+                        style={{
+                            width: 124,
+                            height: 36,
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            backgroundColor: 'blue',
+                            borderRadius: 10,
+                            padding: 2,
+                            marginTop: 10,
+                        }}>
+                        <Text style={{ color: 'white' }}>Edit Profile</Text>
+                    </TouchableOpacity>
+
+                </View>
             </View>
 
 
