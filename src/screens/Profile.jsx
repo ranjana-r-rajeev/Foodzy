@@ -1,14 +1,19 @@
-import { View, Text, StatusBar, Image, TouchableOpacity } from 'react-native'
-import React from 'react'
+import { View, Text, StatusBar, Image, TouchableOpacity, useWindowDimensions, FlatList } from 'react-native'
+import React, { useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
+import { SceneMap, TabBar, TabView } from 'react-native-tab-view'
+
+
 
 const Profile = () => {
+
     return (
         <SafeAreaView style={{
             flex: 1,
-            backgroundColor: 'white'
+            backgroundColor: 'black',
+            color: 'white'
         }}>
-            {/* <Text style={{ color: 'black', alignSelf: 'center' }}>MyProfile</Text> */}
+
             <StatusBar backgroundColor="grey" />
             <View style={{ width: "100%" }}>
                 <Image
@@ -31,16 +36,72 @@ const Profile = () => {
                 <Text style={{
                     fontSize: 18,
                     marginVertical: 8,
-                    color: 'black'
                 }}>
                     Rose Peters
                 </Text>
                 <Text style={{
-                    fontSize: 16,
-                    color: 'black'
+                    fontSize: 16
                 }}>
                     Food Lover
                 </Text>
+
+                <View style={{ flexDirection: 'row' }}>
+                    <View style={{
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        padding: 10
+                    }}>
+                        <Text style={{
+                            fontSize: 16,
+                            fontWeight: 'bold'
+                        }}>
+                            11
+                    </Text>
+                        <Text style={{
+                            fontSize: 16
+                        }}>
+                            Posts
+                    </Text>
+                    </View>
+                    <View style={{
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        padding: 10,
+                        marginLeft: 20,
+                        marginRight: 20
+                    }}>
+                        <Text style={{
+                            fontSize: 16,
+                            fontWeight: 'bold'
+                        }}>
+                            101
+                    </Text>
+                        <Text style={{
+                            fontSize: 16,
+                        }}>
+                            Following
+                    </Text>
+                    </View>
+                    <View style={{
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        padding: 10
+                    }}>
+                        <Text style={{
+                            fontSize: 16,
+                            fontWeight: 'bold'
+                        }}>
+                            111
+                    </Text>
+                        <Text style={{
+                            fontSize: 16
+                        }}>
+                            Followers
+                    </Text>
+                    </View>
+                </View>
+
+
                 <View style={{ flexDirection: 'row' }}>
                     <TouchableOpacity
                         style={{
@@ -55,10 +116,16 @@ const Profile = () => {
                         }}>
                         <Text style={{ color: 'white' }}>Edit Profile</Text>
                     </TouchableOpacity>
-
                 </View>
             </View>
+            <View style={{
+                flex: 1,
+                marginHorizontal: 22,
+                marginTop: 20
+            }}>
 
+
+            </View>
 
         </SafeAreaView>
 
