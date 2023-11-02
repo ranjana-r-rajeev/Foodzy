@@ -1,6 +1,7 @@
 import { Button, StyleSheet, Text, TextInput, View, TouchableHighlight } from 'react-native'
 import React, { useState } from 'react'
 import { Divider } from 'react-native-paper';
+import auth from '@react-native-firebase/auth';
 import Signup from './Signup';
 
 const Login = ({navigation}) => {
@@ -10,6 +11,27 @@ const Login = ({navigation}) => {
 
   const navigateToSignup = () => {
     navigation.navigate('Signup'); // Make sure 'Signup' is the correct screen name in your navigation stack.
+  };
+
+  const handleSubmit = () => {
+    // Handle form submission, e.g., send data to a server or perform client-side validation
+    auth()
+      .signInWithEmailAndPassword(email, password)
+      .then(() => {
+        console.log('User account created & signed in!');
+        navigation.navigate('Home');
+      })
+      .catch(error => {
+        if (error.code === 'auth/email-already-in-use') {
+          navigation.navigate('Home');
+        }
+
+        if (error.code === 'auth/invalid-email') {
+          console.log('That email address is invalid!');
+        }
+
+        console.error(error);
+      });
   };
 
   return (
@@ -28,7 +50,8 @@ const Login = ({navigation}) => {
       <View style={styles.button}> 
         <Button 
         title='Login'
-        color={'blue'}/>
+        color={'blue'}
+        onPress={handleSubmit}/>
       </View>
       <Divider style={{ marginTop: 180, marginBottom: 10, width:"80%", alignSelf: "center" }}/>
       <View style={styles.linktext} >
