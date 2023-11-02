@@ -2,6 +2,7 @@ import { Button, StyleSheet, Text, TextInput, View, TouchableHighlight } from 'r
 import React, { useState } from 'react'
 import { Divider } from 'react-native-paper';
 import auth from '@react-native-firebase/auth';
+import CustomButton from '../components/CustomButton';
 import Signup from './Signup';
 
 const Login = ({navigation}) => {
@@ -47,11 +48,8 @@ const Login = ({navigation}) => {
       value={password}
       onChangeText={setpassword}
       secureTextEntry/>
-      <View style={styles.button}> 
-        <Button 
-        title='Login'
-        color={'blue'}
-        onPress={handleSubmit}/>
+      <View>
+        <CustomButton title="Login" onPress={handleSubmit} />
       </View>
       <Divider style={{ marginTop: 180, marginBottom: 10, width:"80%", alignSelf: "center" }}/>
       <View style={styles.linktext} >
@@ -85,11 +83,6 @@ const styles = StyleSheet.create({
     marginBottom:20,
     paddingLeft:30,
     // textAlign:'center',
-    borderRadius:30
-  },
-  button: {
-    width:200,
-    alignSelf:'center',
     borderRadius:30
   },
   linktext: {

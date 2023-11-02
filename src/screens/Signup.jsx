@@ -2,6 +2,7 @@ import { StyleSheet, Text, TextInput, View, Button, KeyboardAvoidingView } from 
 import React, { useState } from 'react'
 import { ScrollView } from 'react-native-gesture-handler';
 import auth from '@react-native-firebase/auth';
+import CustomButton from '../components/CustomButton';
 
 const Signup = ({navigation}) => {
 
@@ -61,8 +62,8 @@ const Signup = ({navigation}) => {
             onChangeText={setpassword}
             secureTextEntry
           />
-          <View style={styles.button}>
-            <Button title="SignUp" color={'blue'} onPress={handleSubmit}/>
+          <View >
+            <CustomButton title='Signup' onPress={handleSubmit}/>
           </View>
         </KeyboardAvoidingView>
       </ScrollView>
@@ -89,11 +90,5 @@ const styles = StyleSheet.create({
         paddingLeft:30,
         // textAlign:'center',
         borderRadius:30
-      },
-      button: {
-        width:200,
-        alignSelf:'center',
-        borderRadius:30,
-        marginTop:10
       }
 })
