@@ -17,11 +17,11 @@ const Signup = ({ navigation }) => {
       .createUserWithEmailAndPassword(email, password)
       .then(() => {
         console.log('User account created & signed in!');
-        navigation.navigate('Home');
+        navigation.navigate('MainScreen');
       })
       .catch(error => {
         if (error.code === 'auth/email-already-in-use') {
-          navigation.navigate('Home');
+          navigation.navigate('MainScreen');
         }
 
         if (error.code === 'auth/invalid-email') {
