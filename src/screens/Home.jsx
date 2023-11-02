@@ -1,7 +1,6 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import TopBar from '../components/TopBar'
-import Camera from '../components/Camera'
 
 const Home = () => {
   return (

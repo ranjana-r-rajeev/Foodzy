@@ -10,7 +10,7 @@ import CustomButton from './src/components/CustomButton';
 import Profile from './src/screens/Profile';
 import BottomBar from './src/components/BottomBar';
 import MainScreen from './src/screens/MainScreen';
-import Camera from './src/components/Camera';
+import CameraScreen from './src/components/Camera';
 
 const Stack = createStackNavigator();
 
