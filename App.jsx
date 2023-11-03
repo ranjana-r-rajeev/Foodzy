@@ -11,6 +11,7 @@ import Profile from './src/screens/Profile';
 import BottomBar from './src/components/BottomBar';
 import MainScreen from './src/screens/MainScreen';
 import Camera from './src/components/Camera';
+import EditProfile from './src/screens/EditProfile';
 
 const Stack = createStackNavigator();
 
@@ -20,11 +21,12 @@ const App = () => {
     <>
       <NavigationContainer>
         <Stack.Navigator>
-          {/* <Stack.Screen name="Profile" component={Profile} options={{ headerShown: false, }} /> */}
+          <Stack.Screen name="Profile" component={Profile} options={{ headerShown: false, }} />
           <Stack.Screen name="Login" component={Login} options={{ headerShown: false, }} />
           <Stack.Screen name="Signup" component={Signup} options={{ headerShown: false, }} />
           <Stack.Screen name="BottomBar" component={BottomBar} options={{ headerShown: false, }} />
           <Stack.Screen name="MainScreen" component={MainScreen} options={{ headerShown: false, }} />
+          <Stack.Screen name="EditProfile" component={EditProfile} options={{ headerShown: false, }} />
           {/* <Stack.Screen name="Settings" component={Settings} /> */}
           {/* <Stack.Screen name="Settings" component={Settings} /> */}
         </Stack.Navigator>
