@@ -8,11 +8,7 @@ import Signup from './src/screens/Signup';
 import Profile from './src/screens/Profile';
 import BottomBar from './src/components/BottomBar';
 import MainScreen from './src/screens/MainScreen';
-<<<<<<< HEAD
 import CameraScreen from './src/components/CameraScreen';
-=======
-import Camera from './src/components/Camera';
->>>>>>> 5ff7691ba8dc148897c241a9b2bbd7dad5161149
 
 const Stack = createStackNavigator();
 
