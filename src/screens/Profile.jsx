@@ -2,10 +2,17 @@ import { View, Text, StatusBar, Image, TouchableOpacity, useWindowDimensions, Fl
 import React, { useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { SceneMap, TabBar, TabView } from 'react-native-tab-view'
+import EditProfile from './EditProfile'
+import { useNavigation } from '@react-navigation/native'
 
 
 
 const Profile = () => {
+
+    const navigation = useNavigation();
+    const handleEditProfile = () => {
+        navigation.navigate(EditProfile);
+    };
 
     return (
         <SafeAreaView style={{
@@ -113,7 +120,10 @@ const Profile = () => {
                             borderRadius: 10,
                             padding: 2,
                             marginTop: 10,
-                        }}>
+                        }}
+
+                        onPress={handleEditProfile}
+                    >
                         <Text style={{ color: 'white' }}>Edit Profile</Text>
                     </TouchableOpacity>
                 </View>
@@ -130,6 +140,11 @@ const Profile = () => {
         </SafeAreaView>
 
     )
+
+
+
+
+
 }
 
 export default Profile
