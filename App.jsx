@@ -9,6 +9,7 @@ import Profile from './src/screens/Profile';
 import BottomBar from './src/components/BottomBar';
 import MainScreen from './src/screens/MainScreen';
 import CameraScreen from './src/components/CameraScreen';
+import PhotoDisplay from './src/screens/PhotoDisplay';
 
 const Stack = createStackNavigator();
 
@@ -24,7 +25,7 @@ const App = () => {
           <Stack.Screen name="BottomBar" component={BottomBar} options={{ headerShown: false, }} />
           <Stack.Screen name="MainScreen" component={MainScreen} options={{ headerShown: false, }} />
           <Stack.Screen name="CameraScreen" component={CameraScreen} options={{ headerShown: false, }} />
-          {/* <Stack.Screen name="Settings" component={Settings} /> */}
+          <Stack.Screen name="PhotoDisplay" component={PhotoDisplay} options={{ headerShown: false, }} />
           {/* <Stack.Screen name="Settings" component={Settings} /> */}
         </Stack.Navigator>
       </NavigationContainer>
