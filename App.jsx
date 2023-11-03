@@ -11,7 +11,6 @@ import Profile from './src/screens/Profile';
 import BottomBar from './src/components/BottomBar';
 import MainScreen from './src/screens/MainScreen';
 import Camera from './src/components/Camera';
-import EditProfile from './src/screens/EditProfile';
 
 const Stack = createStackNavigator();
 
