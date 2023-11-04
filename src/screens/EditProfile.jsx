@@ -2,49 +2,33 @@ import { View, Text, ScrollView, TouchableOpacity, Image } from 'react-native'
 import React, { useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import Icon from 'react-native-vector-icons/FontAwesome'
-import ImagePicker from 'react-native-image-picker';
 import { TextInput } from 'react-native-paper';
-
+import ImagePicker from 'react-native-image-crop-picker';
 
 
 
 const EditProfile = () => {
 
-
-
-    const ImageDataURL = [
-        'https://png.pngtree.com/background/20230525/original/pngtree-cute-anime-girl-wearing-flowers-picture-image_2735301.jpg'
-    ]
-    const [selectedImage, setSelectedImage] = useState(ImageDataURL[0]);
     const [name, setName] = useState("Rose Peters");
     const [email, setEmail] = useState("rose@gmail.com");
     const [country, setCountry] = useState("India");
 
-    const handleImageSelection = () => {
-        // const options = {
-        //     title: 'Select Image',
-        //     storageOptions: {
-        //         skipBackup: true,
-        //         path: 'images',
-        //     },
-        // };
+    const [selectedImage, setSelectedImage] = useState('https://png.pngtree.com/background/20230525/original/pngtree-cute-anime-girl-wearing-flowers-picture-image_2735301.jpg');
 
-        // ImagePicker.showImagePicker(options, (response) => {
-        //     if (response.didCancel) {
-        //         console.log('User cancelled image picker');
-        //     } else if (response.error) {
-        //         console.log('ImagePicker Error: ', response.error);
-        //     } else if (response.customButton) {
-        //         console.log('User tapped custom button: ', response.customButton);
-        //     } else {
-        //         console.log('Response = ', response);
-
-        //         if (!response.didCancel) {
-        //             setSelectedImage(response.uri);
-        //         }
-        //     }
-        // });
+    const upload = () => {
+        ImagePicker.openPicker({
+            width: 300,
+            height: 400,
+            cropping: true,
+        })
+            .then(image => {
+                if (image) {
+                    setSelectedImage(image.path);
+                }
+            })
+            .catch(err => console.log(err));
     };
+
 
 
 
@@ -73,7 +57,7 @@ const EditProfile = () => {
                         }}
                     />
                     <TouchableOpacity
-                        onPress={handleImageSelection}
+                        onPress={upload}
                     >
                         <View style={{
                             position: 'absolute',
