@@ -11,6 +11,8 @@ import MainScreen from './src/screens/MainScreen';
 import CameraScreen from './src/components/CameraScreen';
 import PhotoDisplay from './src/screens/PhotoDisplay';
 import EditProfile from './src/screens/EditProfile';
+import NewMessage from './src/screens/NewMessage';
+import ContactList from './src/screens/ContactList';
 
 const Stack = createStackNavigator();
 
@@ -28,6 +30,8 @@ const App = () => {
           <Stack.Screen name="PhotoDisplay" component={PhotoDisplay} options={{ headerShown: false, }} />
           <Stack.Screen name="Profile" component={Profile} options={{ headerShown: false, }} />
           <Stack.Screen name="EditProfile" component={EditProfile} options={{ headerShown: false, }} />
+          <Stack.Screen name="ContactList" component={ContactList}/>
+          <Stack.Screen name="NewMessage" component={NewMessage} options={{ headerShown: false, }}/>
           {/* <Stack.Screen name="Settings" component={Settings} /> */}
         </Stack.Navigator>
       </NavigationContainer>

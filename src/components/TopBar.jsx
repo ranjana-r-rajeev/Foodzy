@@ -8,13 +8,13 @@ const TopBar = () => {
 
     const openCamera = () => navigation.navigate('CameraScreen');
 
-    const _handleSearch = () => console.log('Searching');
+    const handleSearch = () => navigation.navigate('ContactList');
 
   return (
     <Appbar.Header>
       <Appbar.Action icon="camera" onPress={openCamera}/>
       <Appbar.Content title="Foodzy" style={{alignItems:'center'}}/>
-      <Appbar.Action icon="chat" onPress={_handleSearch} />
+      <Appbar.Action icon="chat" onPress={handleSearch} />
     </Appbar.Header>
   )
 }
