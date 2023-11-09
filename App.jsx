@@ -25,8 +25,8 @@ const App = () => {
           <Stack.Screen name="Login" component={Login} options={{ headerShown: false, }} />
           <Stack.Screen name="Signup" component={Signup} options={{ headerShown: false, }} />
           <Stack.Screen name="BottomBar" component={BottomBar} options={{ headerShown: false, }} />
-          <Stack.Screen name="MainScreen" component={MainScreen} options={{ headerShown: false, }} />
           <Stack.Screen name="CameraScreen" component={CameraScreen} options={{ headerShown: false, }} />
+          <Stack.Screen name="MainScreen" component={MainScreen} options={{ headerShown: false, }} />
           <Stack.Screen name="PhotoDisplay" component={PhotoDisplay} options={{ headerShown: false, }} />
           <Stack.Screen name="Profile" component={Profile} options={{ headerShown: false, }} />
           <Stack.Screen name="EditProfile" component={EditProfile} options={{ headerShown: false, }} />
