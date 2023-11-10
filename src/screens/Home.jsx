@@ -93,8 +93,8 @@ const styles = StyleSheet.create({
   },
   postImage: {
     marginTop:10,
-    width: '80%',
-    aspectRatio: 1,
+    width: '60%',
+    aspectRatio: 0.9,
     alignSelf:'center'
   },
   caption: {
