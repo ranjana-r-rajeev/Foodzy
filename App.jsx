@@ -15,6 +15,7 @@ import NewMessage from './src/screens/NewMessage';
 import ContactList from './src/screens/ContactList';
 import Add from './src/screens/Add';
 import SearchData from './src/screens/SearchData';
+import Home from './src/screens/Home';
 
 const Stack = createStackNavigator();
 
@@ -24,9 +25,9 @@ const App = () => {
     <>
       <NavigationContainer>
         <Stack.Navigator>
-          <Stack.Screen name="MainScreen" component={MainScreen} options={{ headerShown: false, }} />
           <Stack.Screen name="Login" component={Login} options={{ headerShown: false, }} />
           <Stack.Screen name="Signup" component={Signup} options={{ headerShown: false, }} />
+          <Stack.Screen name="MainScreen" component={MainScreen} options={{ headerShown: false, }} />
           <Stack.Screen name="BottomBar" component={BottomBar} options={{ headerShown: false, }} />
           <Stack.Screen name="CameraScreen" component={CameraScreen} options={{ headerShown: false, }} />
           <Stack.Screen name="PhotoDisplay" component={PhotoDisplay} options={{ headerShown: false, }} />
@@ -36,6 +37,7 @@ const App = () => {
           <Stack.Screen name="NewMessage" component={NewMessage} options={{ headerShown: false, }}/>
           <Stack.Screen name="Add" component={Add} options={{ headerShown: false, }}/>
           <Stack.Screen name="SearchData" component={SearchData} options={{ headerShown: false, }} />
+          <Stack.Screen name="Home" component={Home} options={{ headerShown: false, }} />
           {/* <Stack.Screen name="Settings" component={Settings} /> */}
         </Stack.Navigator>
       </NavigationContainer>
