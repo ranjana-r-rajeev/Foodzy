@@ -13,7 +13,7 @@ const PhotoDisplay = ({ route }) => {
   };
 
   const sendPic = () => {
-      //go where
+    console.log('sent picture');
   };
 
   return (
