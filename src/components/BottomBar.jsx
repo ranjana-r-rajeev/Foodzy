@@ -3,11 +3,12 @@ import React from 'react'
 import { BottomNavigation } from 'react-native-paper';
 import Home from '../screens/Home';
 import Profile from '../screens/Profile';
-import CameraScreen from './CameraScreen';
+import Add from '../screens/Add';
+import SearchData from '../screens/SearchData';
 
 const HomeRoute = () => <Home/>;
-const SearchRoute = () => <Text>Search</Text>;
-const AddRoute = () => <Text>Add</Text>;
+const SearchRoute = () => <SearchData/>;
+const AddRoute = () => <Add/>;
 const LikeRoute = () => <Text>Like</Text>;
 const ProfileRoute = () => <Profile/>;
 const BottomBar = () => {
