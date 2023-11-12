@@ -1,16 +1,20 @@
 import React, {useState} from 'react';
-import {View, Text, TextInput, Button, Image, StyleSheet} from 'react-native';
+import {View, Text, TextInput, Button, Image, StyleSheet, ScrollView} from 'react-native';
 import ImagePicker from 'react-native-image-crop-picker';
-import Icon from 'react-native-vector-icons/FontAwesome6';
 import CustomButton from '../components/CustomButton';
 
 const Add = () => {
-  const [postText, setPostText] = useState('');
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+  const [quantity, setQuantity] = useState('');
+  const [location, setLocation] = useState('');
+  const [date, setDate] = useState('');
+  const [phoneno, setPhoneno] = useState('');
+  const [price, setPrice] = useState( );
   const [selectedImage, setSelectedImage] = useState(null);
 
   const handlePost = () => {
     // Implement your posting logic here, e.g., send the postText and selectedImage to a server.
-    console.log('Posting Text:', postText);
     console.log('Selected Image:', selectedImage);
   };
 
@@ -29,18 +33,55 @@ const Add = () => {
   };
 
   return (
+    <ScrollView>
     <View style={styles.container}>
       <Text style={styles.heading}>Create a Post</Text>
+      <Text>Title:</Text>
+      <TextInput
+        onChangeText={text => setTitle(text)}
+        value={title}
+      />
+
+      <Text>Description:</Text>
+      <TextInput
+        onChangeText={text => setDescription(text)}
+        value={description}
+      />
+
+      <Text>Quantity:</Text>
+      <TextInput
+        onChangeText={text => setQuantity(text)}
+        value={quantity}
+      />
+
+      <Text>Location:</Text>
+      <TextInput
+        onChangeText={text => setLocation(text)}
+        value={location}
+      />
+
+      <Text>Date:</Text>
+      <TextInput
+        onChangeText={text => setDate(text)}
+        value={date}
+      />
+
+      <Text>Phone No:</Text>
+      <TextInput
+        onChangeText={text => setPhoneno(text)}
+        value={phoneno}
+      />
+
+      <Text>Price:</Text>
+      <TextInput
+        onChangeText={text => setPrice(text)}
+        value={price}
+      />
+
+      <Text>Photos:</Text>
       {selectedImage && (
         <Image source={{uri: selectedImage}} style={styles.image} />
       )}
-      <TextInput
-        style={styles.input}
-        placeholder="What's on your mind?"
-        value={postText}
-        onChangeText={text => setPostText(text)}
-        multiline
-      />
       <View style={{}}>
         {/* <View style={{paddingTop:30, marginLeft:30}}>
         <Icon name='image'size={35} onPress={upload}/>
@@ -56,6 +97,7 @@ const Add = () => {
         </View>
       </View>
     </View>
+    </ScrollView>
   );
 };
 
