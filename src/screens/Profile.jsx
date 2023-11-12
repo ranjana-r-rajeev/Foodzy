@@ -1,24 +1,41 @@
 import { View, Text, StatusBar, Image, TouchableOpacity, useWindowDimensions, FlatList } from 'react-native'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { SceneMap, TabBar, TabView } from 'react-native-tab-view'
 import EditProfile from './EditProfile'
-import { useNavigation } from '@react-navigation/native'
-
+import { useNavigation, useRoute } from '@react-navigation/native'; // Import useRoute hook
 
 
 const Profile = () => {
 
     const navigation = useNavigation();
+    const route = useRoute();
     const handleEditProfile = () => {
         navigation.navigate(EditProfile);
     };
 
+    const [selectedImage, setSelectedImage] = useState('https://png.pngtree.com/background/20230525/original/pngtree-cute-anime-girl-wearing-flowers-picture-image_2735301.jpg');
+    const [name, setName] = useState("Rose Peters");
+    const [description, setDescription] = useState("Food lover");
+
+    useEffect(() => {
+        if (route.params && route.params.updatedImage) {
+            setSelectedImage(route.params.updatedImage);
+        }
+
+        if (route.params && route.params.updatedName) {
+            setName(route.params.updatedName);
+        }
+
+        if (route.params && route.params.updatedDescription) {
+            setDescription(route.params.updatedDescription);
+        }
+    }, [route.params]);
+
     return (
         <SafeAreaView style={{
             flex: 1,
-            backgroundColor: 'black',
-            color: 'white'
+            backgroundColor: 'white',
+            color: 'black'
         }}>
 
             <StatusBar backgroundColor="grey" />
@@ -30,7 +47,7 @@ const Profile = () => {
             </View>
             <View style={{ flex: 1, alignItems: 'center' }}>
                 <Image
-                    source={{ uri: 'https://png.pngtree.com/background/20230525/original/pngtree-cute-anime-girl-wearing-flowers-picture-image_2735301.jpg' }}
+                    source={{ uri: selectedImage }}
                     style={{
                         height: 195,
                         width: 195,
@@ -44,12 +61,12 @@ const Profile = () => {
                     fontSize: 18,
                     marginVertical: 8,
                 }}>
-                    Rose Peters
+                    {name}
                 </Text>
                 <Text style={{
                     fontSize: 16
                 }}>
-                    Food Lover
+                    {description}
                 </Text>
 
                 <View style={{ flexDirection: 'row' }}>

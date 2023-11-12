@@ -5,11 +5,21 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 import { TextInput } from 'react-native-paper';
 import ImagePicker from 'react-native-image-crop-picker';
 import DatePicker, { getFormatedDate } from 'react-native-modern-datepicker';
-
+import { useNavigation } from '@react-navigation/native';
 
 const EditProfile = () => {
+    const navigation = useNavigation();
+    const updateProfile = () => {
+        // Pass the updated profile data as parameters to the 'Profile' screen
+        navigation.navigate('Profile', {
+            updatedImage: selectedImage,
+            updatedName: name,
+            updatedDescription: description,
+        });
+    };
 
     const [name, setName] = useState("Rose Peters");
+    const [description, setDescription] = useState("Food lover");
     const [email, setEmail] = useState("rose@gmail.com");
     const [country, setCountry] = useState("India");
 
@@ -65,7 +75,7 @@ const EditProfile = () => {
                     <View
                         style={{
                             margin: 20,
-                            backgroundColor: 'blue',
+                            backgroundColor: 'deeppink',
                             alignItems: "center",
                             justifyContent: "center",
                             borderRadius: 20,
@@ -88,8 +98,8 @@ const EditProfile = () => {
                             onDateChanged={handleChangeStartDate}
                             onSelectedChange={(date) => setSelectedStartDate(date)}
                             options={{
-                                backgroundColor: 'blue',
-                                textHeaderColor: "#469ab6",
+                                backgroundColor: 'deeppink',
+                                textHeaderColor: 'black',
                                 textDefaultColor: 'white',
                                 selectedTextColor: 'white',
                                 mainColor: "#469ab6",
@@ -112,8 +122,8 @@ const EditProfile = () => {
     return (
         <SafeAreaView style={{
             flex: 1,
-            backgroundColor: 'black',
-            color: 'white',
+            backgroundColor: 'white',
+            color: 'black',
             paddingHorizontal: 22
         }}>
             <Text style={{ color: 'black', alignSelf: 'center' }}>Edit Profile</Text>
@@ -139,10 +149,10 @@ const EditProfile = () => {
                         <View style={{
                             position: 'absolute',
                             bottom: 0,
-                            right: -70,
+                            right: -80,
                             zIndex: 9999
                         }}>
-                            <Icon name="camera" size={30} color="deeppink" />
+                            <Icon name="camera" size={35} color="deeppink" />
                         </View>
                     </TouchableOpacity>
                 </View>
@@ -159,12 +169,37 @@ const EditProfile = () => {
                         borderRadius: 4,
                         marginVertical: 6,
                         justifyContent: 'center',
-                        paddingLeft: 0
+                        paddingLeft: 0,
+                        backgroundColor: 'deeppink',
                     }}>
                         <TextInput
                             style={{ backgroundColor: 'white', color: 'black', height: 40 }}
                             value={name}
                             onChangeText={value => setName(value)}
+                            editable={true}
+                        />
+                    </View>
+                </View>
+                <View style={{
+                    flexDirection: 'column',
+                    marginBottom: 6
+                }}>
+                    <Text style={{ fontSize: 16, fontWeight: 'bold' }}>Description</Text>
+                    <View style={{
+                        height: 44,
+                        width: "100%",
+                        borderColor: 'grey',
+                        borderWidth: 1,
+                        borderRadius: 4,
+                        marginVertical: 6,
+                        justifyContent: 'center',
+                        paddingLeft: 0,
+                        backgroundColor: 'deeppink',
+                    }}>
+                        <TextInput
+                            style={{ backgroundColor: 'white', color: 'black', height: 40 }}
+                            value={description}
+                            onChangeText={value => setDescription(value)}
                             editable={true}
                         />
                     </View>
@@ -182,7 +217,8 @@ const EditProfile = () => {
                         borderRadius: 4,
                         marginVertical: 6,
                         justifyContent: 'center',
-                        paddingLeft: 0
+                        paddingLeft: 0,
+                        backgroundColor: 'deeppink',
                     }}>
                         <TextInput
                             style={{ backgroundColor: 'white', color: 'black', height: 40 }}
@@ -205,7 +241,8 @@ const EditProfile = () => {
                         borderRadius: 4,
                         marginVertical: 6,
                         justifyContent: 'center',
-                        paddingLeft: 0
+                        paddingLeft: 0,
+                        backgroundColor: 'deeppink',
                     }}>
                         <TextInput
                             style={{ backgroundColor: 'white', color: 'black', height: 40 }}
@@ -230,19 +267,24 @@ const EditProfile = () => {
                             borderRadius: 4,
                             marginVertical: 6,
                             justifyContent: 'center',
-                            paddingLeft: 0
+                            paddingLeft: 0,
+                            backgroundColor: 'deeppink',
                         }}>
-                        <Text style={{ backgroundColor: 'white', color: 'black', height: 40 }}>{selectedStartDate}</Text>
+                        <Text style={{ backgroundColor: 'white', color: 'black', height: 40, paddingLeft: 15, paddingTop: 10 }}>{selectedStartDate}</Text>
                     </TouchableOpacity>
                 </View>
                 <TouchableOpacity style={{
                     backgroundColor: 'deeppink',
-                    height: 44,
+                    width: 124,
+                    height: 36,
                     borderRadius: 6,
                     alignItems: 'center',
                     justifyContent: 'center',
-                    marginTop: 90
-                }}>
+                    marginTop: 10,
+                    alignSelf: 'center'
+                }}
+                    onPress={updateProfile}
+                >
                     <Text style={{ fontWeight: 'bold', color: 'white' }}>Save Changes</Text>
                 </TouchableOpacity>
 
