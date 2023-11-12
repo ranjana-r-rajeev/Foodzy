@@ -2,8 +2,12 @@ import React, {useState} from 'react';
 import {View, Text, TextInput, Button, Image, StyleSheet, ScrollView} from 'react-native';
 import ImagePicker from 'react-native-image-crop-picker';
 import CustomButton from '../components/CustomButton';
+import { useNavigation } from '@react-navigation/native';
 
 const Add = () => {
+
+  const navigation = useNavigation();
+
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [quantity, setQuantity] = useState('');
@@ -13,9 +17,25 @@ const Add = () => {
   const [price, setPrice] = useState( );
   const [selectedImage, setSelectedImage] = useState(null);
 
+  // const handlePost = () => {
+  //   // Implement your posting logic here, e.g., send the postText and selectedImage to a server.
+  //   console.log('Selected Image:', selectedImage);
+  // };
+
   const handlePost = () => {
-    // Implement your posting logic here, e.g., send the postText and selectedImage to a server.
-    console.log('Selected Image:', selectedImage);
+    const postData = {
+      title,
+      description,
+      quantity,
+      location,
+      date,
+      phoneno,
+      price,
+      selectedImage,
+    };
+
+    // Pass the postData to the Home screen
+    navigation.navigate('', { postData });
   };
 
   const upload = () => {
@@ -36,49 +56,49 @@ const Add = () => {
     <ScrollView>
     <View style={styles.container}>
       <Text style={styles.heading}>Create a Post</Text>
-      <Text>Title:</Text>
-      <TextInput
+      <Text style={styles.h1}>Title:</Text>
+      <TextInput style={styles.box}
         onChangeText={text => setTitle(text)}
         value={title}
       />
 
-      <Text>Description:</Text>
-      <TextInput
+      <Text style={styles.h1}>Description:</Text>
+      <TextInput style={styles.box}
         onChangeText={text => setDescription(text)}
         value={description}
       />
 
-      <Text>Quantity:</Text>
-      <TextInput
+      <Text style={styles.h1}>Quantity:</Text>
+      <TextInput style={styles.box}
         onChangeText={text => setQuantity(text)}
         value={quantity}
       />
 
-      <Text>Location:</Text>
-      <TextInput
+      <Text style={styles.h1}>Location:</Text>
+      <TextInput style={styles.box}
         onChangeText={text => setLocation(text)}
         value={location}
       />
 
-      <Text>Date:</Text>
-      <TextInput
+      <Text style={styles.h1}>Date:</Text>
+      <TextInput style={styles.box}
         onChangeText={text => setDate(text)}
         value={date}
       />
 
-      <Text>Phone No:</Text>
-      <TextInput
+      <Text style={styles.h1}>Phone No:</Text>
+      <TextInput style={styles.box}
         onChangeText={text => setPhoneno(text)}
         value={phoneno}
       />
 
-      <Text>Price:</Text>
-      <TextInput
+      <Text style={styles.h1}>Price:</Text>
+      <TextInput style={styles.box}
         onChangeText={text => setPrice(text)}
         value={price}
       />
 
-      <Text>Photos:</Text>
+      <Text style={styles.h1}>Photos:</Text>
       {selectedImage && (
         <Image source={{uri: selectedImage}} style={styles.image} />
       )}
@@ -111,6 +131,21 @@ const styles = StyleSheet.create({
     fontSize: 20,
     marginBottom: 20,
     textAlign: 'center',
+    fontWeight:"bold",
+  },
+  h1: {
+    fontSize:15,
+    fontWeight:"bold",
+  },
+  box: {
+    borderColor:'grey',
+    borderWidth:1,
+    borderRadius:20,
+    paddingLeft:15,
+    paddingBottom:5,
+    paddingTop:5,
+    marginTop:5,
+    marginBottom:5
   },
   image: {
     width: 300,

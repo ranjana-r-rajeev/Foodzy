@@ -47,8 +47,9 @@ const Home = () => {
       <View style={{ flexDirection: 'row', alignItems: 'center', marginVertical: 10 }}>
       <Icon name="heart" size={20} color="red" style={styles.icon} />
       <Icon name="comment" size={20} color="black" style={{marginLeft:15}} />
+      <Icon name="phone" size={20} color="blue" style={{marginLeft:15}} />
       <Icon name="share" size={20} color="green" style={{marginLeft:15}} />
-      <Icon name="bookmark" size={20} color="blue" style={{marginLeft:220}} />
+      <Icon name="bookmark" size={20} color="purple" style={{marginLeft:200}} />
     </View>
       <Text style={styles.caption}>{item.caption}</Text>
     </View>
