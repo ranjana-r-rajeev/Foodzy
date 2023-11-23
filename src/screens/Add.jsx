@@ -66,6 +66,8 @@ const Add = () => {
     };
 
     console.log('posted');
+    navigation.navigate('MainScreen', { screen: 'Home' });
+    // navigation.navigate('Home'); // check if this works
     //   let filename = postData.substring(postData.lastIndexOf('/' +1));
 
     //   try{
