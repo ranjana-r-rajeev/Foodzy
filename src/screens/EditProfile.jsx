@@ -11,7 +11,7 @@ const EditProfile = () => {
     const navigation = useNavigation();
     const updateProfile = () => {
         // Pass the updated profile data as parameters to the 'Profile' screen
-        navigation.navigate('Profile', {
+        navigation.navigate('MainScreen', {
             updatedImage: selectedImage,
             updatedName: name,
             updatedDescription: description,
