@@ -1,46 +1,69 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
-import { BottomNavigation } from 'react-native-paper';
+import React from 'react';
 import Home from '../screens/Home';
 import Profile from '../screens/Profile';
 import Add from '../screens/Add';
 import SearchData from '../screens/SearchData';
+import Icon from 'react-native-vector-icons/Ionicons';
+import LikeScreen from '../screens/LikeScreen';
+import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
 
-const HomeRoute = () => <Home/>;
-const SearchRoute = () => <SearchData/>;
-const AddRoute = () => <Add/>;
-const LikeRoute = () => <Text>Like</Text>;
-const ProfileRoute = () => <Profile/>;
-const BottomBar = () => {
+const Tab = createMaterialBottomTabNavigator();
 
-  const [index, setIndex] = React.useState(0);
-  const [routes] = React.useState([
-    { key: 'home', title: '', focusedIcon: 'home' },
-    { key: 'search', title: '', focusedIcon: 'magnify' },
-    { key: 'add', title: '', focusedIcon: 'plus-circle-outline' },
-    { key: 'like', title: '', focusedIcon: 'heart', unfocusedIcon: 'heart-outline'},
-    { key: 'profile', title: '', focusedIcon: 'account'},
-  ]);
-
-  const renderScene = BottomNavigation.SceneMap({
-    home: HomeRoute,
-    search: SearchRoute,
-    add: AddRoute,
-    like: LikeRoute,
-    profile: ProfileRoute,
-  });
-
+function BottomBar() {
   return (
-    <BottomNavigation
-      navigationState={{ index, routes }}
-      onIndexChange={setIndex}
-      renderScene={renderScene}
-      barStyle={{  height: 60 }}
-      activeColor="purple"
-    />
-  )
+    <Tab.Navigator
+      activeColor="purple" // Set the active color for the tabs
+      barStyle={{backgroundColor: 'white', height: 70}}
+      shifting={true}>
+      <Tab.Screen
+        name="Home"
+        component={Home}
+        options={{
+          tabBarIcon: ({color}) => <Icon name="home" color={color} size={26} />,
+          tabBarLabel: '',
+        }}
+      />
+      <Tab.Screen
+        name="SearchData"
+        component={SearchData}
+        options={{
+          tabBarIcon: ({color}) => (
+            <Icon name="search" color={color} size={26} />
+          ),
+          tabBarLabel: '',
+        }}
+      />
+      <Tab.Screen
+        name="Add"
+        component={Add}
+        options={{
+          tabBarIcon: ({color}) => (
+            <Icon name="add-circle-outline" color={color} size={26} />
+          ),
+          tabBarLabel: '',
+        }}
+      />
+      <Tab.Screen
+        name="LikeScreen"
+        component={LikeScreen}
+        options={{
+          tabBarIcon: ({color}) => (
+            <Icon name="heart-outline" color={color} size={26} />
+          ),
+          tabBarLabel: '',
+        }}
+      />
+      <Tab.Screen
+        name="Profile"
+        component={Profile}
+        options={{
+          tabBarIcon: ({color}) => (
+            <Icon name="person" color={color} size={26} />
+          ),
+          tabBarLabel: '',
+        }}
+      />
+    </Tab.Navigator>
+  );
 }
-
-export default BottomBar
-
-const styles = StyleSheet.create({})
+export default BottomBar;

@@ -5,18 +5,20 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 import { TextInput } from 'react-native-paper';
 import ImagePicker from 'react-native-image-crop-picker';
 import DatePicker, { getFormatedDate } from 'react-native-modern-datepicker';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 
 
 const EditProfile = () => {
+    const route = useRoute();
+    const { updatedImage, updatedName, updatedDescription } = route.params || {};
     const navigation = useNavigation();
     const updateProfile = () => {
         // Pass the updated profile data as parameters to the 'Profile' screen
-        navigation.navigate('MainScreen', {
+        navigation.navigate('MainScreen', {screen: 'Profile', params: {
             updatedImage: selectedImage,
             updatedName: name,
             updatedDescription: description,
-        });
+          },});
     };
 
 
