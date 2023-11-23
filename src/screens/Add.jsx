@@ -7,6 +7,15 @@ import storage from '@react-native-firebase/storage';
 import DatePicker from 'react-native-date-picker';
 import {TextInputMask} from 'react-native-masked-text';
 import {format} from 'date-fns';
+// import { firestore } from '@react-native-firebase/firestore';
+// import { firestore } from '@react-native-firebase/app';
+// import {firestore, auth} from '@react-native-firebase/firestore';
+// import { auth, firestore } from '@react-native-firebase/app';
+// import '@react-native-firebase/firestore';
+import auth from '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore';
+import '@react-native-firebase/app';
+import '@react-native-firebase/auth';
 
 const Add = () => {
 
@@ -54,6 +63,8 @@ const Add = () => {
       return;
     }
 
+    const user = auth().currentUser;
+
     const postData = {
       title,
       description,
@@ -63,7 +74,16 @@ const Add = () => {
       phoneno,
       price,
       selectedImage,
+      userId: user.uid, // Associate the post with the user
     };
+
+    try {
+      // Store post data in Firestore
+      await firestore().collection('posts').add(postData);
+      console.log('Post successfully added to Firestore');
+    } catch (error) {
+      console.error('Error storing post data: ', error);
+    }
 
     console.log('posted');
     navigation.navigate('MainScreen', { screen: 'Home' });
