@@ -4,12 +4,18 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import EditProfile from './EditProfile'
 import { useNavigation, useRoute } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialIcons'
+import Settings from './Settings';
 
 
 const Profile = () => {
 
     const navigation = useNavigation();
     const route = useRoute();
+
+    const handleSettings = () => {
+        navigation.navigate(Settings);
+    };
+
     const handleEditProfile = () => {
         navigation.navigate(EditProfile);
     };
@@ -41,14 +47,14 @@ const Profile = () => {
         }}>
 
             <StatusBar backgroundColor="grey" />
-            <View style={{ flexDirection: 'row', alignSelf: "flex-end" }}>
-                <Icon name="settings" size={25} color="blue" />
-            </View>
             <View style={{ width: "100%" }}>
                 <Image
                     source={{ uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRvGLIB5nbm0lkh1qxoj6lhjM_y0Jx_itVW7Q&usqp=CAU' }}
                     style={{ height: 175, width: "100%" }}
                     resizeMode='cover' />
+            </View>
+            <View style={{ position: 'absolute', top: 10, right: 12 }}>
+                <Icon name="settings" size={30} color="blue" onPress={handleSettings} />
             </View>
             <View style={{ flex: 1, alignItems: 'center' }}>
                 <Image
