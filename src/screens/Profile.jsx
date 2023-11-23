@@ -2,7 +2,8 @@ import { View, Text, StatusBar, Image, TouchableOpacity, useWindowDimensions, Fl
 import React, { useState, useEffect } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import EditProfile from './EditProfile'
-import { useNavigation, useRoute } from '@react-navigation/native'; // Import useRoute hook
+import { useNavigation, useRoute } from '@react-navigation/native';
+import Icon from 'react-native-vector-icons/MaterialIcons'
 
 
 const Profile = () => {
@@ -40,6 +41,9 @@ const Profile = () => {
         }}>
 
             <StatusBar backgroundColor="grey" />
+            <View style={{ flexDirection: 'row', alignSelf: "flex-end" }}>
+                <Icon name="settings" size={25} color="blue" />
+            </View>
             <View style={{ width: "100%" }}>
                 <Image
                     source={{ uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRvGLIB5nbm0lkh1qxoj6lhjM_y0Jx_itVW7Q&usqp=CAU' }}
