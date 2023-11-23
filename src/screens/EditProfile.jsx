@@ -11,6 +11,7 @@ import { useNavigation } from '@react-navigation/native';
 const EditProfile = () => {
     const navigation = useNavigation();
     const updateProfile = () => {
+        // Pass the updated profile data as parameters to the 'Profile' screen
         navigation.navigate('Profile', {
             updatedImage: selectedImage,
             updatedName: name,
