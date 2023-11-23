@@ -1,4 +1,4 @@
-import { View, Text, ScrollView, TouchableOpacity, Image, Modal } from 'react-native'
+import { View, Text, ScrollView, TouchableOpacity, Image, Modal, StyleSheet } from 'react-native'
 import React, { useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import Icon from 'react-native-vector-icons/FontAwesome'
@@ -7,10 +7,10 @@ import ImagePicker from 'react-native-image-crop-picker';
 import DatePicker, { getFormatedDate } from 'react-native-modern-datepicker';
 import { useNavigation } from '@react-navigation/native';
 
+
 const EditProfile = () => {
     const navigation = useNavigation();
     const updateProfile = () => {
-        // Pass the updated profile data as parameters to the 'Profile' screen
         navigation.navigate('Profile', {
             updatedImage: selectedImage,
             updatedName: name,
@@ -18,7 +18,8 @@ const EditProfile = () => {
         });
     };
 
-    const [name, setName] = useState("Rose Peters");
+
+    const [name, setName] = useState("Rose Peter");
     const [description, setDescription] = useState("Food lover");
     const [email, setEmail] = useState("rose@gmail.com");
     const [country, setCountry] = useState("India");
@@ -75,7 +76,7 @@ const EditProfile = () => {
                     <View
                         style={{
                             margin: 20,
-                            backgroundColor: 'deeppink',
+                            backgroundColor: 'skyblue',
                             alignItems: "center",
                             justifyContent: "center",
                             borderRadius: 20,
@@ -98,7 +99,7 @@ const EditProfile = () => {
                             onDateChanged={handleChangeStartDate}
                             onSelectedChange={(date) => setSelectedStartDate(date)}
                             options={{
-                                backgroundColor: 'deeppink',
+                                backgroundColor: 'skyblue',
                                 textHeaderColor: 'black',
                                 textDefaultColor: 'white',
                                 selectedTextColor: 'white',
@@ -106,7 +107,10 @@ const EditProfile = () => {
                                 textSecondaryColor: 'white',
                                 borderColor: "rgba(122,146,165,0.1)",
                             }}
-                            style={{ height: 300 }}
+                            style={{
+                                height: 300,
+                                width: 300,
+                            }}
                         />
 
                         <TouchableOpacity onPress={handleOnPressStartDate}>
@@ -133,26 +137,27 @@ const EditProfile = () => {
                     alignItems: 'center',
                     marginVertical: 22
                 }}>
-                    <Image
-                        source={{ uri: selectedImage }}
-                        style={{
-                            height: 170,
-                            width: 170,
-                            borderRadius: 85,
-                            borderWidth: 2,
-                            borderColor: 'deeppink'
-                        }}
-                    />
                     <TouchableOpacity
                         onPress={upload}
                     >
+                        <Image
+                            source={{ uri: selectedImage }}
+                            style={{
+                                height: 170,
+                                width: 170,
+                                borderRadius: 85,
+                                borderWidth: 2,
+                                borderColor: 'blue'
+                            }}
+                        />
+
                         <View style={{
                             position: 'absolute',
                             bottom: 0,
-                            right: -80,
+                            right: 10,
                             zIndex: 9999
                         }}>
-                            <Icon name="camera" size={35} color="deeppink" />
+                            <Icon name="camera" size={35} color="blue" />
                         </View>
                     </TouchableOpacity>
                 </View>
@@ -161,17 +166,7 @@ const EditProfile = () => {
                     marginBottom: 6
                 }}>
                     <Text style={{ fontSize: 16, fontWeight: 'bold' }}>Name</Text>
-                    <View style={{
-                        height: 44,
-                        width: "100%",
-                        borderColor: 'grey',
-                        borderWidth: 1,
-                        borderRadius: 4,
-                        marginVertical: 6,
-                        justifyContent: 'center',
-                        paddingLeft: 0,
-                        backgroundColor: 'deeppink',
-                    }}>
+                    <View style={styles.text}>
                         <TextInput
                             style={{ backgroundColor: 'white', color: 'black', height: 40 }}
                             value={name}
@@ -185,17 +180,7 @@ const EditProfile = () => {
                     marginBottom: 6
                 }}>
                     <Text style={{ fontSize: 16, fontWeight: 'bold' }}>Description</Text>
-                    <View style={{
-                        height: 44,
-                        width: "100%",
-                        borderColor: 'grey',
-                        borderWidth: 1,
-                        borderRadius: 4,
-                        marginVertical: 6,
-                        justifyContent: 'center',
-                        paddingLeft: 0,
-                        backgroundColor: 'deeppink',
-                    }}>
+                    <View style={styles.text}>
                         <TextInput
                             style={{ backgroundColor: 'white', color: 'black', height: 40 }}
                             value={description}
@@ -209,17 +194,7 @@ const EditProfile = () => {
                     marginBottom: 6
                 }}>
                     <Text style={{ fontSize: 16, fontWeight: 'bold' }}>Email</Text>
-                    <View style={{
-                        height: 44,
-                        width: "100%",
-                        borderColor: 'grey',
-                        borderWidth: 1,
-                        borderRadius: 4,
-                        marginVertical: 6,
-                        justifyContent: 'center',
-                        paddingLeft: 0,
-                        backgroundColor: 'deeppink',
-                    }}>
+                    <View style={styles.text}>
                         <TextInput
                             style={{ backgroundColor: 'white', color: 'black', height: 40 }}
                             value={email}
@@ -233,17 +208,7 @@ const EditProfile = () => {
                     marginBottom: 6
                 }}>
                     <Text style={{ fontSize: 16, fontWeight: 'bold' }}>Country</Text>
-                    <View style={{
-                        height: 44,
-                        width: "100%",
-                        borderColor: 'grey',
-                        borderWidth: 1,
-                        borderRadius: 4,
-                        marginVertical: 6,
-                        justifyContent: 'center',
-                        paddingLeft: 0,
-                        backgroundColor: 'deeppink',
-                    }}>
+                    <View style={styles.text}>
                         <TextInput
                             style={{ backgroundColor: 'white', color: 'black', height: 40 }}
                             value={country}
@@ -259,22 +224,12 @@ const EditProfile = () => {
                     <Text style={{ fontSize: 16, fontWeight: 'bold' }}>Date of Birth</Text>
                     <TouchableOpacity
                         onPress={handleOnPressStartDate}
-                        style={{
-                            height: 44,
-                            width: "100%",
-                            borderColor: 'grey',
-                            borderWidth: 1,
-                            borderRadius: 4,
-                            marginVertical: 6,
-                            justifyContent: 'center',
-                            paddingLeft: 0,
-                            backgroundColor: 'deeppink',
-                        }}>
+                        style={styles.text}>
                         <Text style={{ backgroundColor: 'white', color: 'black', height: 40, paddingLeft: 15, paddingTop: 10 }}>{selectedStartDate}</Text>
                     </TouchableOpacity>
                 </View>
                 <TouchableOpacity style={{
-                    backgroundColor: 'deeppink',
+                    backgroundColor: 'blue',
                     width: 124,
                     height: 36,
                     borderRadius: 6,
@@ -294,5 +249,19 @@ const EditProfile = () => {
         </SafeAreaView>
     )
 }
+
+const styles = StyleSheet.create({
+    text: {
+        height: 44,
+        width: "100%",
+        borderColor: 'grey',
+        borderWidth: 1,
+        borderRadius: 4,
+        marginVertical: 6,
+        justifyContent: 'center',
+        paddingLeft: 0,
+        backgroundColor: 'blue',
+    }
+})
 
 export default EditProfile

@@ -31,6 +31,7 @@ const Profile = () => {
         }
     }, [route.params]);
 
+
     return (
         <SafeAreaView style={{
             flex: 1,
