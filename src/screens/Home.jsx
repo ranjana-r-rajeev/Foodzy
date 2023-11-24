@@ -48,8 +48,12 @@ const Home = () => {
     // const imageUrl = `/storage/emulated/0/Android/data/com.foodzy/files/Pictures/${item.selectedImage}`;
 
     // Remove file:/// prefix
-    const imageUrl = item.selectedImage.replace('file://', '');
+    // const imageUrl = item.selectedImage.replace('file://', '');
     // const imageUrl = item.selectedImage;
+      // Check if selectedImage exists before using it
+  // const imageUrl = item.selectedImage ? item.selectedImage : null;
+  // const imageUrl = item.selectedImage ? item.selectedImage : 'https://firebasestorage.googleapis.com/v0/b/foodzy-441f5.appspot.com/o/894597e4-fdea-45ab-804b-49bbfaad9bb2.jpg?alt=media&token=76fe2491-8542-440c-8b67-1f68cb15694b';
+  const imageUrl = item.imageUrl || 'YOUR_DEFAULT_IMAGE_URL';
 
     // console.log('Image URL:', item.selectedImage);
     console.log('Image URL:', imageUrl);
@@ -59,9 +63,10 @@ const Home = () => {
         <Text style={styles.postTitle}>{item.title}</Text>
         <Text style={styles.postLocation}>{item.location}</Text>
         <Image
-          source={{uri: item.selectedImage}}
+          // source={{uri: item.selectedImage}}
+          source={{ uri: imageUrl } }
           style={styles.postImage}
-          onError={e => console.log('Error loading image:', e)}
+          onError={e => console.log('Error loading image:', e.nativeEvent.error)}
         />
         {/* <Text style={styles.postDescription}>{item.description}</Text> */}
         <Text style={styles.postDate}>Use till: {date.toLocaleString()}</Text>
@@ -141,10 +146,6 @@ const styles = StyleSheet.create({
   postTitle: {
     fontSize: 18,
     fontWeight: 'bold',
-    marginBottom: 8,
-  },
-  postDescription: {
-    fontSize: 16,
     marginBottom: 8,
   },
   postImage: {

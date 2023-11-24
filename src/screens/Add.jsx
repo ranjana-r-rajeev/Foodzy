@@ -42,6 +42,100 @@ const Add = () => {
   const [price, setPrice] = useState(0);
   const [selectedImage, setSelectedImage] = useState(null);
 
+  // const handlePost = async () => {
+  //   if (
+  //     !title ||
+  //     !description ||
+  //     !quantity ||
+  //     !location ||
+  //     !date ||
+  //     !phoneno ||
+  //     !price ||
+  //     !selectedImage
+  //   ) {
+  //     console.error('All fields are required');
+  //     // Handle the case where not all required fields are filled
+  //     return;
+  //   }
+
+  //   if (isNaN(price)) {
+  //     console.error('Price must be a valid number');
+  //     return;
+  //   }
+
+  //   const user = auth().currentUser;
+
+  //   const postData = {
+  //     title,
+  //     description,
+  //     quantity,
+  //     location,
+  //     date,
+  //     phoneno,
+  //     price,
+  //     selectedImage,
+  //     userId: user.uid, // Associate the post with the user
+  //   };
+
+  //   console.log('Data to be stored:', postData);
+
+  //   // try {
+  //   //   // Store post data in Firestore
+  //   //   await firestore().collection('posts').add(postData);
+  //   //   console.log('Post successfully added to Firestore');
+  //   // } 
+  //   try {
+
+  //     const reference = storage().ref(imagePath.split('/').pop());
+  //     await reference.putFile(imagePath);                // first saves the image
+  //     const url = await reference.getDownloadURL();     // gets the url
+  
+  //     const _item = {
+  //       ...formState,
+  //       image: url,            // url added to item before saving
+  //       userId: user.uid,
+  //     };
+  
+  //     const ref = await firestore().collection('items').add(_item);  // then save to db
+  
+  
+  //   } 
+  //   catch (error) {
+  //     console.error('Error storing post data: ', error);
+  //   }
+
+  //   console.log('posted');
+  //   navigation.navigate('MainScreen', { screen: 'Home' });
+  //   // navigation.navigate('Home'); // check if this works
+  //   //   let filename = postData.substring(postData.lastIndexOf('/' +1));
+
+  //   //   try{
+  //   //     await storage().ref(filename).putFile(postData);
+  //   //   } catch(e) {
+  //   //     console.log(e);
+  //   //   }
+
+  //   // };
+  //   if (postData.selectedImage) {
+  //     const filename = postData.selectedImage.split('/').pop();
+
+  //     try {
+  //       await storage().ref(filename).putFile(postData.selectedImage);
+  //     } catch (e) {
+  //       console.log(e);
+  //     }
+  //   } else {
+  //     console.error('No selected image to upload');
+  //   }
+  //   setTitle('');
+  //   setDescription('');
+  //   setQuantity('');
+  //   setLocation('');
+  //   setDate(new Date());
+  //   setPhoneno('');
+  //   setPrice('');
+  //   setSelectedImage(null);
+  // };
   const handlePost = async () => {
     if (
       !title ||
@@ -57,57 +151,46 @@ const Add = () => {
       // Handle the case where not all required fields are filled
       return;
     }
-
+  
     if (isNaN(price)) {
       console.error('Price must be a valid number');
       return;
     }
-
+  
     const user = auth().currentUser;
-
-    const postData = {
-      title,
-      description,
-      quantity,
-      location,
-      date,
-      phoneno,
-      price,
-      selectedImage,
-      userId: user.uid, // Associate the post with the user
-    };
-
+  
     try {
+      // Upload image to storage
+      const filename = selectedImage.split('/').pop();
+      const imageReference = storage().ref(filename);
+      await imageReference.putFile(selectedImage);
+  
+      // Get download URL
+      const imageUrl = await imageReference.getDownloadURL();
+  
       // Store post data in Firestore
+      const postData = {
+        title,
+        description,
+        quantity,
+        location,
+        date,
+        phoneno,
+        price,
+        imageUrl, // Use the imageUrl obtained from storage
+        userId: user.uid,
+      };
+  
       await firestore().collection('posts').add(postData);
       console.log('Post successfully added to Firestore');
+  
+      console.log('posted');
+      navigation.navigate('MainScreen', { screen: 'Home' });
     } catch (error) {
       console.error('Error storing post data: ', error);
     }
-
-    console.log('posted');
-    navigation.navigate('MainScreen', { screen: 'Home' });
-    // navigation.navigate('Home'); // check if this works
-    //   let filename = postData.substring(postData.lastIndexOf('/' +1));
-
-    //   try{
-    //     await storage().ref(filename).putFile(postData);
-    //   } catch(e) {
-    //     console.log(e);
-    //   }
-
-    // };
-    if (postData.selectedImage) {
-      const filename = postData.selectedImage.split('/').pop();
-
-      try {
-        await storage().ref(filename).putFile(postData.selectedImage);
-      } catch (e) {
-        console.log(e);
-      }
-    } else {
-      console.error('No selected image to upload');
-    }
+  
+    // Clear form fields and selected image after posting
     setTitle('');
     setDescription('');
     setQuantity('');
@@ -116,7 +199,7 @@ const Add = () => {
     setPhoneno('');
     setPrice('');
     setSelectedImage(null);
-  };
+  };  
 
   const upload = () => {
     ImagePicker.openPicker({
