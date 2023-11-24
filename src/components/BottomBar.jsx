@@ -12,7 +12,7 @@ const Tab = createMaterialBottomTabNavigator();
 function BottomBar() {
   return (
     <Tab.Navigator
-      activeColor="purple" // Set the active color for the tabs
+      activeColor="blue" // Set the active color for the tabs
       barStyle={{backgroundColor: 'white', height: 70}}
       shifting={true}>
       <Tab.Screen
