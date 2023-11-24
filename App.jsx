@@ -17,6 +17,7 @@ import Add from './src/screens/Add';
 import SearchData from './src/screens/SearchData';
 import Home from './src/screens/Home';
 import Settings from './src/screens/Settings';
+import SplashScreen from './src/screens/SplashScreen';
 
 const Stack = createStackNavigator();
 
@@ -26,6 +27,7 @@ const App = () => {
     <>
       <NavigationContainer>
         <Stack.Navigator>
+          <Stack.Screen name="Splash" component={SplashScreen} options={{ headerShown: false, }} />
           <Stack.Screen name="Login" component={Login} options={{ headerShown: false, }} />
           <Stack.Screen name="Signup" component={Signup} options={{ headerShown: false, }} />
           <Stack.Screen name="MainScreen" component={MainScreen} options={{ headerShown: false, }} />
