@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StatusBar, Image, TouchableOpacity, useWindowDimensions, SafeAreaView, } from 'react-native';
+import { View, Text, StatusBar, Image, TouchableOpacity, useWindowDimensions, ScrollView, FlatList, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import storage from '@react-native-firebase/storage';
 import auth from '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore';
 import EditProfile from './EditProfile'
 
 const Profile = () => {
@@ -65,11 +66,49 @@ const Profile = () => {
     }
   }, [updatedImage]);
 
+
+
+
+
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    // Fetch user posts from Firestore
+    const fetchUserPosts = async () => {
+      const user = auth().currentUser;
+
+      try {
+        const postsRef = firestore().collection('posts');
+        const userPosts = await postsRef.where('userId', '==', user.uid).get();
+
+        const userPostsData = userPosts.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+
+        setPosts(userPostsData);
+      } catch (error) {
+        console.error('Error fetching user posts:', error);
+      }
+    };
+
+    fetchUserPosts();
+  }, []);
+
+
+
+
+
+
+
+
   return (
-    <SafeAreaView style={{
+
+    <View style={{
       flex: 1,
       backgroundColor: 'white',
-      color: 'black'
+      color: 'black',
+      height: 900,
     }}>
       <View style={{
         flexDirection: 'row',
@@ -131,7 +170,7 @@ const Profile = () => {
               fontSize: 16,
               fontWeight: 'bold'
             }}>
-              11
+              0
                     </Text>
             <Text style={{
               fontSize: 16
@@ -150,7 +189,7 @@ const Profile = () => {
               fontSize: 16,
               fontWeight: 'bold'
             }}>
-              101
+              0
                     </Text>
             <Text style={{
               fontSize: 16,
@@ -167,7 +206,7 @@ const Profile = () => {
               fontSize: 16,
               fontWeight: 'bold'
             }}>
-              111
+              0
                     </Text>
             <Text style={{
               fontSize: 16
@@ -195,11 +234,63 @@ const Profile = () => {
           </TouchableOpacity>
         </View>
       </View>
-      <View style={{ flex: 1, marginHorizontal: 22, marginTop: 20 }}>
-        {/* ... (other content) */}
+
+      <View style={{}}>
+        <Text style={{ alignSelf: 'center' }}>POSTS</Text>
+        <FlatList
+          data={posts}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item }) => (
+            <View style={styles.postContainer}>
+              <Text style={styles.postTitle}>{item.title}</Text>
+              <Text style={styles.postDescription}>{item.description}</Text>
+              <Text style={styles.postDetails}>Location: {item.location}</Text>
+              <Text style={styles.postDetails}>Price: {item.price}</Text>
+              <Text style={styles.postDetails}>Quantity: {item.quantity}</Text>
+              <Image
+                source={{ uri: item.imageUrl }}
+                style={{ width: '100%', height: 200, marginTop: 10, borderRadius: 8 }}
+                resizeMode="cover"
+              />
+              {/* ... include other post details ... */}
+            </View>
+          )}
+        />
       </View>
-    </SafeAreaView>
+
+    </View>
   );
 };
 
+
+const styles = StyleSheet.create({
+  postContainer: {
+    marginBottom: 16,
+    backgroundColor: '#ffffff',
+    borderRadius: 8,
+    padding: 16,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 2,
+    elevation: 2,
+  },
+  postTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 8,
+  },
+  postDescription: {
+    fontSize: 16,
+    marginBottom: 8,
+    color: 'grey',
+  },
+  postDetails: {
+    fontSize: 14,
+    marginBottom: 4,
+    color: 'black',
+  },
+});
+
 export default Profile;
+
