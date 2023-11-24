@@ -1,143 +1,27 @@
-// import React, { useState } from 'react';
-// import { View, Text, TextInput, FlatList, Image, StyleSheet } from 'react-native';
-
-// const searchData = [
-//   {
-//     id: 1,
-//     profilepicUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRkISrkY0JL9CRE8FQ_rhPPesvt8BcO_UWoSA&usqp=CAU',
-//     username: 'john_doe',
-//   },
-//   {
-//     id: 2,
-//     profilepicUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQRNocPxX0k27kOIm5N6Fl5p2gSm5UvUphuyw&usqp=CAU',
-//     username: 'jane_smith',
-//   },
-//   {
-//     id: 3,
-//     profilepicUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRbeTEuSqiiMhu-2Dn8jixmP6aNiwsKC1ugSg&usqp=CAU',
-//     username: 'jammy',
-//   },
-//   {
-//     id: 4,
-//     profilepicUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT1CgG65cc1h4xU2UQmkmFPeeM4ejrl2tFl3g&usqp=CAU',
-//     username: 'cally',
-//   },
-//     // Add more posts as needed
-//   ];
-
-// const SearchData = () => {
-//   const [searchText, setSearchText] = useState('');
-//   const [searchResults, setSearchResults] = useState([]);
-
-//   const handleSearch = () => {
-//     // Implement your search logic here, e.g., filter searchData based on searchText.
-//     const filteredResults = searchData.filter(item =>
-//       item.username.toLowerCase().includes(searchText.toLowerCase())
-//     );
-//     setSearchResults(filteredResults);
-//   };
-
-//   const renderSearchResult = ({ item }) => (
-//     <View style={styles.resultContainer}>
-//       <Image source={{ uri: item.profilepicUrl }} style={styles.profileImage} />
-//       <Text style={styles.username}>{item.username}</Text>
-//     </View>
-//   );
-
-//   return (
-//     <View style={styles.container}>
-//       <TextInput
-//         style={styles.searchInput}
-//         placeholder="Search users"
-//         value={searchText}
-//         onChangeText={text => setSearchText(text)}
-//         onSubmitEditing={handleSearch}
-//       />
-//       <FlatList
-//         data={searchResults}
-//         keyExtractor={item => item.id.toString()}
-//         renderItem={renderSearchResult}
-//       />
-//     </View>
-//   );
-// };
-
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     padding: 10,
-//   },
-//   searchInput: {
-//     height: 40,
-//     borderColor: 'gray',
-//     borderWidth: 1,
-//     marginBottom: 10,
-//     padding: 10,
-//     borderRadius:20,
-//     marginTop:20,
-//   },
-//   resultContainer: {
-//     flexDirection: 'row',
-//     alignItems: 'center',
-//     marginBottom: 10,
-//   },
-//   profileImage: {
-//     width: 40,
-//     height: 40,
-//     borderRadius: 20,
-//     marginRight: 10,
-//   },
-//   username: {
-//     fontWeight: 'bold',
-//   },
-// });
-
-// export default SearchData;
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, FlatList, Image, StyleSheet } from 'react-native';
+import { View, Text, TextInput, FlatList, Image, StyleSheet, TouchableOpacity, ActivityIndicator } from 'react-native';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 
 const SearchData = () => {
   const [searchText, setSearchText] = useState('');
   const [searchResults, setSearchResults] = useState([]);
-
-  useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        const user = auth().currentUser;
-        if (user) {
-          const userUid = user.uid;
-          const userPostsSnapshot = await firestore()
-            .collection('posts')
-            .where('userId', '==', userUid)
-            .get();
-
-          const userPostsData = userPostsSnapshot.docs.map(doc => ({
-            id: doc.id,
-            ...doc.data(),
-          }));
-
-          setSearchResults(userPostsData);
-        }
-      } catch (error) {
-        console.error('Error fetching user data: ', error);
-      }
-    };
-
-    fetchUserData();
-  }, []);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   const handleSearch = async () => {
     try {
+      setLoading(true);
       const user = auth().currentUser;
       if (user) {
         const userUid = user.uid;
+
+        // Perform a case-insensitive search for posts with matching titles
         const filteredResultsSnapshot = await firestore()
           .collection('posts')
           .where('userId', '==', userUid)
-          .where('title', '>=', searchText)
-          .where('title', '<=', searchText + '\uf8ff')
+          .where('title', '>=', searchText.toLowerCase())
+          .where('title', '<=', searchText.toLowerCase() + '\uf8ff')
           .get();
 
         const filteredResultsData = filteredResultsSnapshot.docs.map(doc => ({
@@ -149,36 +33,103 @@ const SearchData = () => {
       }
     } catch (error) {
       console.error('Error searching data: ', error);
+      setError('Error searching posts. Please try again.');
+    } finally {
+      setLoading(false);
     }
   };
 
   const renderSearchResult = ({ item }) => (
-    <View style={styles.resultContainer}>
-      <Image source={{ uri: item.selectedImage }} style={styles.profileImage} />
-      <Text style={styles.username}>{item.title}</Text>
-    </View>
+    <TouchableOpacity onPress={() => showDetails(item)}>
+      <View style={styles.resultContainer}>
+        <Image
+          source={{ uri: item.selectedImage }}
+          style={styles.profileImage}
+          onError={(e) => console.log('Error loading image:', e)}
+        />
+        <Text style={styles.username}>{item.title}</Text>
+      </View>
+    </TouchableOpacity>
   );
+
+  const showDetails = (item) => {
+    // Implement logic to navigate to a screen showing all details for the selected post
+    console.log('Show details for post:', item);
+  };
 
   return (
     <View style={styles.container}>
       <TextInput
         style={styles.searchInput}
-        placeholder="Search posts"
+        placeholder="Search posts by title"
         value={searchText}
         onChangeText={text => setSearchText(text)}
         onSubmitEditing={handleSearch}
       />
-      <FlatList
-        data={searchResults}
-        keyExtractor={item => item.id.toString()}
-        renderItem={renderSearchResult}
-      />
+      {loading ? (
+        <ActivityIndicator size="large" color="#0000ff" />
+      ) : error ? (
+        <Text style={styles.errorText}>{error}</Text>
+      ) : searchResults.length === 0 ? (
+        <Text style={styles.noResultsText}>No results found</Text>
+      ) : (
+        <FlatList
+          data={searchResults}
+          keyExtractor={item => item.id.toString()}
+          renderItem={renderSearchResult}
+        />
+      )}
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  // Your existing styles
+  container: {
+    flex: 1,
+    padding: 10,
+    backgroundColor: '#f5f5f5',
+  },
+  searchInput: {
+    height: 40,
+    borderColor: '#ddd',
+    borderWidth: 1,
+    marginBottom: 10,
+    padding: 10,
+    borderRadius: 20,
+    marginTop: 20,
+    backgroundColor: '#fff',
+  },
+  resultContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 10,
+    backgroundColor: '#fff',
+    padding: 10,
+    borderRadius: 8,
+    elevation: 2,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 2,
+  },
+  profileImage: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    marginRight: 10,
+  },
+  username: {
+    fontWeight: 'bold',
+    color: '#333',
+  },
+  errorText: {
+    color: 'red',
+    marginTop: 10,
+  },
+  noResultsText: {
+    textAlign: 'center',
+    marginTop: 20,
+  },
 });
 
 export default SearchData;

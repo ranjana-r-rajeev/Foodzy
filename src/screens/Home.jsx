@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {View,Text,FlatList,Image,StyleSheet,ActivityIndicator,TouchableOpacity,} from 'react-native';
+import {View,Text,FlatList,Image,StyleSheet,ActivityIndicator,TouchableOpacity, Linking} from 'react-native';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import Icon from 'react-native-vector-icons/FontAwesome6';
@@ -45,42 +45,60 @@ const Home = () => {
   const renderPostItem = ({item}) => {
     const date = item.date.toDate();
     const isExpanded = expandedIds.includes(item.id);
-    // const imageUrl = `/storage/emulated/0/Android/data/com.foodzy/files/Pictures/${item.selectedImage}`;
 
-    // Remove file:/// prefix
-    // const imageUrl = item.selectedImage.replace('file://', '');
-    // const imageUrl = item.selectedImage;
-      // Check if selectedImage exists before using it
-  // const imageUrl = item.selectedImage ? item.selectedImage : null;
-  // const imageUrl = item.selectedImage ? item.selectedImage : 'https://firebasestorage.googleapis.com/v0/b/foodzy-441f5.appspot.com/o/894597e4-fdea-45ab-804b-49bbfaad9bb2.jpg?alt=media&token=76fe2491-8542-440c-8b67-1f68cb15694b';
-  const imageUrl = item.imageUrl || 'YOUR_DEFAULT_IMAGE_URL';
+    const imageUrl = item.imageUrl || 'YOUR_DEFAULT_IMAGE_URL';
 
-    // console.log('Image URL:', item.selectedImage);
     console.log('Image URL:', imageUrl);
+
+    // Add a function to handle the phone icon press
+  const handlePhonePress = (phoneno) => {
+    const url = `tel:${phoneno}`;
+    
+    // Check if the Linking module is supported
+    if (Linking.canOpenURL(url)) {
+      Linking.openURL(url);
+    } else {
+      console.log("Can't handle phone call");
+    }
+    if (!phoneno) {
+      console.log('Phone number not available');
+      return;
+    }
+  
+    Linking.canOpenURL(url)
+      .then((supported) => {
+        if (supported) {
+          Linking.openURL(url);
+        } else {
+          console.log("Can't handle phone call");
+        }
+      })
+      .catch((error) => {
+        console.error('Error opening URL:', error);
+      });
+  };
 
     return (
       <View style={styles.postContainer}>
         <Text style={styles.postTitle}>{item.title}</Text>
         <Text style={styles.postLocation}>{item.location}</Text>
         <Image
-          // source={{uri: item.selectedImage}}
-          source={{ uri: imageUrl } }
+
+          source={{uri: imageUrl}}
           style={styles.postImage}
-          onError={e => console.log('Error loading image:', e.nativeEvent.error)}
+          onError={e =>
+            console.log('Error loading image:', e.nativeEvent.error)
+          }
         />
-        {/* <Text style={styles.postDescription}>{item.description}</Text> */}
         <Text style={styles.postDate}>Use till: {date.toLocaleString()}</Text>
         <TouchableOpacity onPress={() => toggleDescription(item.id)}>
           <Text style={styles.postDescription}>
-            {/* {isExpanded ? item.description : `${item.description.substring(0, 100)}... Read More`} */}
             {isExpanded
               ? `\nDescription: ${item.description}\nQuantity: ${item.quantity}\nPrice: ${item.price}`
               : `${item.description.substring(0, 100)}... Read More`}
           </Text>
         </TouchableOpacity>
-        {/* <Text style={styles.postDescription}>{item.description}</Text>
-        <Text style={styles.postDescription}>{item.description}</Text>
-        <Text style={styles.postDescription}>{item.description}</Text> */}
+
         <View
           style={{
             flexDirection: 'row',
@@ -94,7 +112,10 @@ const Home = () => {
             color="black"
             style={{marginLeft: 15}}
           />
-          <Icon name="phone" size={20} color="blue" style={{marginLeft: 15}} />
+          <TouchableOpacity onPress={() => handlePhonePress(item.phoneno)}>
+            <Icon name="phone" size={20} color="blue" style={{marginLeft: 15}} />
+          </TouchableOpacity>
+          
           <Icon name="share" size={20} color="green" style={{marginLeft: 15}} />
           <Icon
             name="bookmark"

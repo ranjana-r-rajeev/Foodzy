@@ -96,7 +96,7 @@ const Profile = () => {
       </View>
       <View style={{ flex: 1, alignItems: 'center' }}>
         <Image
-          source={{ uri: selectedImage }}
+          source={{ uri: selectedImage || 'https://placekitten.com/200/300' }}
           style={{
             height: 195,
             width: 195,
