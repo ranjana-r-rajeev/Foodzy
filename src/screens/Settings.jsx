@@ -1,8 +1,11 @@
 import { StyleSheet, Text, View, ScrollView } from 'react-native'
 import React from 'react'
 import Icon from 'react-native-vector-icons/MaterialIcons'
+import { useNavigation } from '@react-navigation/native';
 
 const Settings = () => {
+
+    const navigation = useNavigation();
 
     const navigateToReportProblem = () => {
         console.log("Report a problem");
@@ -13,6 +16,7 @@ const Settings = () => {
     };
 
     const logout = () => {
+        navigation.navigate('Login');
         console.log("Logout");
     };
 
